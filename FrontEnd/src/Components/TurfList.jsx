@@ -6,7 +6,7 @@ const TurfList = () => {
 
   useEffect(() => {
     const fetchTurfs = async () => {
-      const response = await axios.get('/api/turfs');
+      const response = await axios.get('http://localhost:3000/api/turfs');
       setTurfs(response.data);
     };
 

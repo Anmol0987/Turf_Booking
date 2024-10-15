@@ -13,7 +13,7 @@ const AdminTurf = () => {
   }, []);
 
   const fetchTurfs = async () => {
-    const response = await axios.get('/api/turfs');
+    const response = await axios.get('http://localhost:3000/api/turfs');
     setTurfs(response.data);
   };
 
@@ -22,12 +22,12 @@ const AdminTurf = () => {
     const token = localStorage.getItem('token');
 
     if (editing) {
-      await axios.put(`/api/turfs/${editing}`, { name, location, price }, {
+      await axios.put(`http://localhost:3000/api/turfs/${editing}`, { name, location, price }, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEditing(null);
     } else {
-      await axios.post('/api/turfs', { name, location, price }, {
+      await axios.post('http://localhost:3000/api/turfs', { name, location, price }, {
         headers: { Authorization: `Bearer ${token}` },
       });
     }
@@ -47,7 +47,7 @@ const AdminTurf = () => {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
-    await axios.delete(`/api/turfs/${id}`, {
+    await axios.delete(`http://localhost:3000/api/turfs/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchTurfs();

@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/authMiddleWare');
 
 // Register user
 router.post('/register', async (req, res) => {
-    const { username, email, password, role } = req.body;    
+    const { username, email, password, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, email, password: hashedPassword, role });
     try {
@@ -22,11 +22,14 @@ router.post('/register', async (req, res) => {
 // Login user
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    console.log(email);
+    console.log(password);
     const user = await User.findOne({ email });
     if (!user || !await bcrypt.compare(password, user.password)) {
         return res.status(401).json({ message: 'Invalid credentials' });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    res.send({ token });
 })
 
 // Get User Profile

@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  // const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('/api/auth/login', { email, password });
-    localStorage.setItem('token', response.data.token);
-    alert('Login successful!');
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        alert('Login successful!');
+        navigate('/profile');
+      } else {
+        setError('Login failed: Invalid credentials');
+      }
+    } catch (error) {
+      setError('Login failed: ' + error.response?.data?.error || 'Server error');
+    }
   };
 
   return (

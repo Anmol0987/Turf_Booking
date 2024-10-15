@@ -10,7 +10,7 @@ const Booking = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
-    await axios.post('/api/bookings/book', { turfId, date, time }, {
+    await axios.post('http://localhost:3000/api/bookings/book', { turfId, date, time }, {
       headers: { Authorization: `Bearer ${token}` },
     });
     alert('Booking successful!');
