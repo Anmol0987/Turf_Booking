@@ -7,7 +7,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const cors = require('cors');
 
 // Load environment variables
-dotenv.config();
+dotenv.config({path: "./vars/.env"});
 const app = express();
 app.use(cors());
 app.use(express.json());
