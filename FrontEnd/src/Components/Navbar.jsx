@@ -14,7 +14,6 @@ const Navbar = () => {
                         <span className='trasition ease-in-out delay-100 hover:-translate-y-2 hover:text-2xl duration-300 cursor-pointer hover:underline'>Contact Us</span>
                         <span className='trasition ease-in-out delay-100 hover:-translate-y-2 hover:text-2xl duration-300 cursor-pointer hover:underline'>About Us</span>
                         <span className='trasition ease-in-out delay-100 hover:-translate-y-2 hover:text-2xl duration-300 cursor-pointer hover:underline'>Become Supplier</span>
-
                     </div>
                     <div className='reletive flex mx-5   gap-3 '>
                         <Link to='/login' className='text-xl bg-blue-400 px-8 items-center py-3  rounded-full  text-white transition ease-in-out delay-100 hover:text-blue-400  hover:bg-white hover:-translate-y-2  duration-300 '>Login</Link>
