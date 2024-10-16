@@ -6,12 +6,14 @@ import Booking from './Components/Booking';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import TurfList from './Components/TurfList';
+import Home from './Pages/Home'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<TurfList/>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/turfs" element={<TurfList/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/book" element={<Booking/>}/>
