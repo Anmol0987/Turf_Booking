@@ -32,7 +32,10 @@ router.post('/login', async (req, res) => {
 
 // Get User Profile
 router.get('/profile', authMiddleware, (req, res) => {
-    res.json({ username: req.user.username, email: req.user.email, role: req.user.role });
+    if (req.user) {
+        res.json(req.user);  // Return user profile if authenticated
+    } else {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
 });
-
 module.exports = router;

@@ -1,24 +1,26 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AdminTurf from './Components/AdminTurf';
-import Profile from './Components/Profile';
-import Booking from './Components/Booking';
-import Register from './Components/Register';
-import Login from './Components/Login';
-import TurfList from './Components/TurfList';
+import AdminTurf from './Pages/AdminTurf';
+import Profile from './Pages/Profile';
+import Booking from './Pages/Booking';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
+import TurfList from './Pages/TurfList';
 import Home from './Pages/Home'
+import OAuthRedirect from './Pages/OAuthRedirect';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/turfs" element={<TurfList/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/book" element={<Booking/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/admin/turfs" element={<AdminTurf/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/turfs" element={<TurfList />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/book" element={<Booking />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/admin/turfs" element={<AdminTurf />} />
+        <Route path="/oauth-redirect" element={<OAuthRedirect />} />
       </Routes>
     </BrowserRouter>
 

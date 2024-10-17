@@ -7,10 +7,21 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/api/auth/profile', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUser(response.data);
+      try {
+        const response = await axios.get('http://localhost:3000/api/auth/profile', {
+          withCredentials: true,
+          headers: {
+            Authorization: token ? `Bearer ${token}` : '',
+          },
+        });
+
+        if (response.data) {
+          localStorage.setItem('user', JSON.stringify(response.data));
+          setUser(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error.response);  // Error handling
+      }
     };
 
     fetchUserProfile();

@@ -26,6 +26,10 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.open(`http://localhost:3000/api/auth/google`,"_self");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto py-8">
@@ -58,6 +62,15 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        <div className="text-center">
+          <button
+            onClick={handleGoogleLogin}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Login with Google
+          </button>
+        </div>
       </div>
     </div>
   );
