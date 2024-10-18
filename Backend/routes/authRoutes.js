@@ -38,4 +38,13 @@ router.get('/profile', authMiddleware, (req, res) => {
         res.status(401).json({ message: 'Unauthorized' });
     }
 });
+
+router.get("/logout", (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Error during logout." });
+      }
+      res.status(200).json({ message: "Logout successful." });
+    });
+  });
 module.exports = router;

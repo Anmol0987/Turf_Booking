@@ -27,6 +27,21 @@ const Profile = () => {
     fetchUserProfile();
   }, []);
 
+  
+  const HandleLogout = async () => {
+    alert('Logging out...');
+    try {
+      await axios.get('http://localhost:3000/api/auth/logout', { withCredentials: true });
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    } catch (error) {
+      console.error('Error logging out:', error.response);  // Error handling
+    }
+  }
+
+
+
   if (!user) return <div>Loading...</div>;
 
   return (
@@ -39,6 +54,7 @@ const Profile = () => {
           <p>Role: {user.role}</p>
         </div>
       </div>
+      <button onClick={HandleLogout}>Logout</button>
     </div>
   );
 };

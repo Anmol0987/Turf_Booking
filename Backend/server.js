@@ -44,11 +44,6 @@ app.get('/api/auth/google/callback', passport.authenticate('google', {
   res.redirect('http://localhost:5173/oauth-redirect');  
 });
 
-app.get('/api/auth/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
-
 
 
 // Routes
