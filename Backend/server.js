@@ -14,12 +14,13 @@ const cors = require('cors');
 
 // Load environment variables
 dotenv.config({ path: "./vars/.env" });
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser('secret'));
 app.use(cors({
-  origin: 'http://localhost:5173', // Your frontend URL
-  credentials: true // Allow cookies to be sent
+  origin: 'http://localhost:5173',
+  credentials: true 
 }));
 
 
