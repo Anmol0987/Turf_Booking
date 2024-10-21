@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FcGoogle } from "react-icons/fc";
+import { useRecoilState } from 'recoil';
+import isSignUp from '../atoms/IsSignup';
 
 const LoginTest = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [signUp, setSignUp] =useRecoilState(isSignUp);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -14,11 +16,11 @@ const LoginTest = () => {
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
-    setIsSignUp(true);
+    setSignUp(true);
   };
 
   const handleSignInClick = () => {
-    setIsSignUp(false);
+    setSignUp(false);
   };
 
 
@@ -47,7 +49,7 @@ const LoginTest = () => {
     await axios.post('http://localhost:3000/api/auth/register', { username:username, email:registerEmail,password: registerPassword });
     alert('Registration successful!');
     navigate('/login');
-    setIsSignUp(false);
+    setSignUp(false);
     setLoginEmail(registerEmail);
     setRegisterEmail('');
     setRegisterPassword('');
@@ -67,7 +69,7 @@ const LoginTest = () => {
       <div className="relative w-full max-w-[100vh] min-h-[500px] rounded-lg shadow-lg bg-white bg-opacity-80 overflow-hidden">
         {/* Sign Up Form */}
         <div
-          className={`absolute inset-y-0 left-0 w-1/2 h-fullbackdrop-blur-xl bg-yellow-400/30 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-100 pointer-events-auto' : '-translate-x-0 opacity-0 pointer-events-none'
+          className={`absolute inset-y-0 left-0 w-1/2 h-fullbackdrop-blur-xl bg-yellow-400/30 p-8 transition-transform duration-500 ease-in-out ${signUp ? 'translate-x-full opacity-100 pointer-events-auto' : '-translate-x-0 opacity-0 pointer-events-none'
             }`}
         >
           <h1 className="text-2xl font-bold mb-4 text-white">Create Account</h1>
@@ -109,7 +111,7 @@ const LoginTest = () => {
         </div>
 
         {/* Sign In Form */}
-        <div className={`absolute inset-y-0 left-0 w-1/2 h-fullbackdrop-blur-xl bg-green-400/30 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 pointer-events-auto'}`}>
+        <div className={`absolute inset-y-0 left-0 w-1/2 h-fullbackdrop-blur-xl bg-green-400/30 p-8 transition-transform duration-500 ease-in-out ${signUp ? 'translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 pointer-events-auto'}`}>
           <form onSubmit={handleLoginSubmit}>
             <div className="mb-4">
               <p className="mb-4 text-white text-xl text-center">LOGIN</p>
@@ -154,12 +156,12 @@ const LoginTest = () => {
 
         {/* Overlay */}
         <div
-          className={`absolute inset-y-0 left-1/2 w-1/2 h-fullbackdrop-blur-xl bg-gradient-to-r  from-green-400/30 to-yellow-400/30 text-white transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : 'translate-x-0'
+          className={`absolute inset-y-0 left-1/2 w-1/2 h-fullbackdrop-blur-xl bg-gradient-to-r  from-green-400/30 to-yellow-400/30 text-white transition-transform duration-500 ease-in-out ${signUp ? '-translate-x-full' : 'translate-x-0'
             }`}
         >
           <div className="flex flex-col justify-center items-center h-full p-8">
             {/* Sign In Prompt */}
-            {!isSignUp && (
+            {!signUp && (
               <div className="absolute top-0 flex flex-col justify-center items-center h-full w-full text-center">
                 <h1 className="text-3xl font-bold mb-2">Welcome Back!</h1>
                 <p className="mb-4">To keep connected with us, please login with your personal info.</p>
@@ -173,7 +175,7 @@ const LoginTest = () => {
             )}
 
             {/* Sign Up Prompt */}
-            {isSignUp && (
+            {signUp && (
               <div className="absolute top-0 flex flex-col justify-center items-center h-full w-full text-center">
                 <h1 className="text-3xl font-bold mb-2">Hello, Friend!</h1>
                 <p className="mb-4">Enter your details and start your journey with us.</p>
