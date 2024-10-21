@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FcGoogle } from "react-icons/fc";
 
 const LoginTest = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -55,18 +56,24 @@ const LoginTest = () => {
 
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="relative w-full max-w-[100vh] min-h-[500px] rounded-lg shadow-lg bg-white overflow-hidden">
-
+    <div 
+      className="flex justify-center items-center h-screen shadow-2xl" 
+      style={{ 
+        backgroundImage: 'url("https://images.unsplash.com/photo-1713815713124-362af0201f3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")', // replace with your image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="relative w-full max-w-[100vh] min-h-[500px] rounded-lg shadow-lg bg-white bg-opacity-80 overflow-hidden">
         {/* Sign Up Form */}
         <div
-          className={`absolute inset-y-0 left-0 w-1/2 h-full bg-yellow-200 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-100 pointer-events-auto' : '-translate-x-0 opacity-0 pointer-events-none'
+          className={`absolute inset-y-0 left-0 w-1/2 h-fullbackdrop-blur-xl bg-yellow-400/30 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-100 pointer-events-auto' : '-translate-x-0 opacity-0 pointer-events-none'
             }`}
         >
           <h1 className="text-2xl font-bold mb-4 text-white">Create Account</h1>
-          <form onSubmit={handleRegisterSubmit} >
+          <form onSubmit={handleRegisterSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+              <label className="block text-white text-md mb-2">Username</label>
               <input
                 type="text"
                 value={username}
@@ -76,7 +83,7 @@ const LoginTest = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+              <label className="block text-white text-md mb-2">Email</label>
               <input
                 type="email"
                 value={registerEmail}
@@ -86,7 +93,7 @@ const LoginTest = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+              <label className="block text-white text-md mb-2">Password</label>
               <input
                 type="password"
                 value={registerPassword}
@@ -95,18 +102,18 @@ const LoginTest = () => {
                 required
               />
             </div>
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit" className="w-full rounded-full  bg-yellow-400 hover:bg-yellow-500 text-white py-2 px-4 mt-4">
               Register
             </button>
           </form>
         </div>
-        {/* Sign In Form */}
-        
 
-        <div className={`absolute inset-y-0 left-0 w-1/2 h-full bg-green-400 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 pointer-events-auto'}`}>
+        {/* Sign In Form */}
+        <div className={`absolute inset-y-0 left-0 w-1/2 h-fullbackdrop-blur-xl bg-green-400/30 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 pointer-events-auto'}`}>
           <form onSubmit={handleLoginSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+              <p className="mb-4 text-white text-xl text-center">LOGIN</p>
+              <label className="block text-white text-md mb-2">Email</label>
               <input
                 type="email"
                 value={loginEmail}
@@ -116,7 +123,7 @@ const LoginTest = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+              <label className="block text-white text-md mb-2">Password</label>
               <input
                 type="password"
                 value={loginPassword}
@@ -128,22 +135,26 @@ const LoginTest = () => {
             <div className='flex justify-between'>
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="w-full rounded-full bg-green-500 hover:bg-green-700 text-white py-2 px-4 mt-4"
               >
                 Login
               </button>
-              <button
-                onClick={handleGoogleLogin}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Login with Google
-              </button>
             </div>
           </form>
+          <div className='flex flex-col items-center justify-center mt-2 gap-2'>
+            <h3>OR</h3>
+            <button
+              onClick={handleGoogleLogin}
+              className="bg-white hover:bg-gray-100 text-black w-full py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline flex items-center justify-center gap-2"
+            >
+              <FcGoogle /> Login with Google
+            </button>
+          </div>
         </div>
+
         {/* Overlay */}
         <div
-          className={`absolute inset-y-0 left-1/2 w-1/2 h-full bg-gradient-to-r from-green-400 to-yellow-200 text-white transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : 'translate-x-0'
+          className={`absolute inset-y-0 left-1/2 w-1/2 h-fullbackdrop-blur-xl bg-gradient-to-r  from-green-400/30 to-yellow-400/30 text-white transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : 'translate-x-0'
             }`}
         >
           <div className="flex flex-col justify-center items-center h-full p-8">
