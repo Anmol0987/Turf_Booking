@@ -1,15 +1,58 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginTest = () => {
-  const [isSignUp, setIsSignUp] = useState(false); // Controls form and prompt
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSignUpClick = () => {
-    setIsSignUp(true); // Show Sign Up form and prompt
+    setIsSignUp(true);
   };
 
   const handleSignInClick = () => {
-    setIsSignUp(false); // Show Sign In form and prompt
+    setIsSignUp(false);
   };
+
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/login', { email:loginEmail, password:loginPassword });
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        // alert('Login successful!');
+        navigate('/profile');
+      } else {
+        setError('Login failed: Invalid credentials');
+      }
+    } catch (error) {
+      setError('Login failed: ' + error.response?.data?.error || 'Server error');
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    window.open(`http://localhost:3000/api/auth/google`, "_self");
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    await axios.post('http://localhost:3000/api/auth/register', { username:username, email:registerEmail,password: registerPassword });
+    alert('Registration successful!');
+    navigate('/login');
+    setIsSignUp(false);
+    setLoginEmail(registerEmail);
+    setRegisterEmail('');
+    setRegisterPassword('');
+    setUsername('');
+  }
+
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -17,44 +60,87 @@ const LoginTest = () => {
 
         {/* Sign Up Form */}
         <div
-          className={`absolute inset-y-0 left-0 w-1/2 h-full bg-green-400 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 pointer-events-auto'
-            }`}
-        >
-          <h1 className="text-2xl font-bold mb-4 text-white">Sign In</h1>
-          <div className="flex justify-center mb-4">
-            <a href="#" className="social mx-2"><i className="fab fa-facebook-f"></i></a>
-            <a href="#" className="social mx-2"><i className="fab fa-google-plus-g"></i></a>
-            <a href="#" className="social mx-2"><i className="fab fa-linkedin-in"></i></a>
-          </div>
-          <p className="mb-4 text-white text-sm">or use your email account</p>
-          <input type="email" placeholder="Email" className="bg-gray-200 p-3 mb-2 w-full" />
-          <input type="password" placeholder="Password" className="bg-gray-200 p-3 mb-2 w-full" />
-          <a href="#" className="text-sm text-white mb-2 block">Forgot your password?</a>
-          <button type="submit" className="w-full rounded-full bg-green-600 text-white py-2 px-4 mt-4">
-            Sign In
-          </button>
-        </div>
-
-        {/* Sign In Form */}
-        <div
           className={`absolute inset-y-0 left-0 w-1/2 h-full bg-yellow-200 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-100 pointer-events-auto' : '-translate-x-0 opacity-0 pointer-events-none'
             }`}
         >
           <h1 className="text-2xl font-bold mb-4 text-white">Create Account</h1>
-          <div className="flex justify-center mb-4">
-            <a href="#" className="social mx-2"><i className="fab fa-facebook-f"></i></a>
-            <a href="#" className="social mx-2"><i className="fab fa-google-plus-g"></i></a>
-            <a href="#" className="social mx-2"><i className="fab fa-linkedin-in"></i></a>
-          </div>
-          <p className="mb-4 text-white text-sm">or use your email for registration</p>
-          <input type="text" placeholder="Name" className="bg-gray-200 p-3 mb-2 w-full" />
-          <input type="email" placeholder="Email" className="bg-gray-200 p-3 mb-2 w-full" />
-          <input type="password" placeholder="Password" className="bg-gray-200 p-3 mb-2 w-full" />
-          <button type="submit" className="w-full rounded-full bg-yellow-400 text-white py-2 px-4 mt-4">
-            Sign Up
-          </button>
+          <form onSubmit={handleRegisterSubmit} >
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+              <input
+                type="email"
+                value={registerEmail}
+                onChange={(e) => setRegisterEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+              <input
+                type="password"
+                value={registerPassword}
+                onChange={(e) => setRegisterPassword(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Register
+            </button>
+          </form>
         </div>
+        {/* Sign In Form */}
+        
 
+        <div className={`absolute inset-y-0 left-0 w-1/2 h-full bg-green-400 p-8 transition-transform duration-500 ease-in-out ${isSignUp ? 'translate-x-full opacity-0 pointer-events-none' : 'translate-x-0 opacity-100 pointer-events-auto'}`}>
+          <form onSubmit={handleLoginSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+              <input
+                type="email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+              <input
+                type="password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className='flex justify-between'>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Login
+              </button>
+              <button
+                onClick={handleGoogleLogin}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Login with Google
+              </button>
+            </div>
+          </form>
+        </div>
         {/* Overlay */}
         <div
           className={`absolute inset-y-0 left-1/2 w-1/2 h-full bg-gradient-to-r from-green-400 to-yellow-200 text-white transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : 'translate-x-0'

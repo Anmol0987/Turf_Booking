@@ -4,7 +4,7 @@ const User = require('../models/User');
 const dotenv = require('dotenv');
 
 
-dotenv.config({ path: ".env" });
+dotenv.config({ path: "./vars/.env" });
 
 // Serialize user to store in session
 passport.serializeUser((user, done) => {
