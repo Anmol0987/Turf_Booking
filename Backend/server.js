@@ -13,7 +13,7 @@ const cors = require('cors');
 
 
 // Load environment variables
-dotenv.config({ path: "./vars/.env" });
+dotenv.config({ path: ".env" });
 const app = express();
 app.use(express.json());
 app.use(cookieParser('secret'));

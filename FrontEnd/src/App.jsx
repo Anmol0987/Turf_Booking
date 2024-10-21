@@ -8,6 +8,7 @@ import Login from './Pages/Login';
 import TurfList from './Pages/TurfList';
 import Home from './Pages/Home'
 import OAuthRedirect from './Pages/OAuthRedirect';
+import LoginTest from './Pages/LoginTest';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/turfs" element={<TurfList />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/loginTest" element={<LoginTest />} />
         <Route path="/register" element={<Register />} />
         <Route path="/book" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
