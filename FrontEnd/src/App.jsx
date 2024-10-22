@@ -10,6 +10,7 @@ import Home from './Pages/Home'
 import OAuthRedirect from './Pages/OAuthRedirect';
 import LoginTest from './Pages/LoginTest';
 import { RecoilRoot } from 'recoil';
+import TurfBox from './Components/TurfBox';
 
 const App = () => {
   return (
@@ -18,9 +19,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/turfs" element={<TurfList />} />
-          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/login" element={<LoginTest />} />
-          {/* <Route path="/register" element={<Register />} /> */}
+          <Route path="/box" element={<TurfBox />} />
           <Route path="/book" element={<Booking />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin/turfs" element={<AdminTurf />} />
