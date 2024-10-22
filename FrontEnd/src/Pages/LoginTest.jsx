@@ -4,9 +4,11 @@ import axios from 'axios';
 import { FcGoogle } from "react-icons/fc";
 import { useRecoilState } from 'recoil';
 import isSignUp from '../atoms/IsSignup';
+import isLoginAtom from '../atoms/Islogin';
 
 const LoginTest = () => {
-  const [signUp, setSignUp] =useRecoilState(isSignUp);
+  const [signUp, setSignUp] = useRecoilState(isSignUp);
+  const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -27,11 +29,11 @@ const LoginTest = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', { email:loginEmail, password:loginPassword });
+      const response = await axios.post('http://localhost:3000/api/auth/login', { email: loginEmail, password: loginPassword });
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
-        // alert('Login successful!');
-        navigate('/profile');
+        setIsLogin(true);
+        navigate('/');
       } else {
         setError('Login failed: Invalid credentials');
       }
@@ -46,7 +48,7 @@ const LoginTest = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:3000/api/auth/register', { username:username, email:registerEmail,password: registerPassword });
+    await axios.post('http://localhost:3000/api/auth/register', { username: username, email: registerEmail, password: registerPassword });
     alert('Registration successful!');
     navigate('/login');
     setSignUp(false);
@@ -58,9 +60,9 @@ const LoginTest = () => {
 
 
   return (
-    <div 
-      className="flex flex-col justify-start items-center h-screen shadow-2xl" 
-      style={{ 
+    <div
+      className="flex flex-col justify-start items-center h-screen shadow-2xl"
+      style={{
         backgroundImage: 'url("https://images.unsplash.com/photo-1713815713124-362af0201f3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")', // replace with your image URL
         backgroundSize: 'cover',
         backgroundPosition: 'center',
