@@ -11,6 +11,7 @@ import OAuthRedirect from './Pages/OAuthRedirect';
 import LoginTest from './Pages/LoginTest';
 import { RecoilRoot } from 'recoil';
 import TurfBox from './Components/TurfBox';
+import TurfCategory from './Components/TurfCategory';
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/turfs" element={<TurfList />} />
           <Route path="/login" element={<LoginTest />} />
-          <Route path="/box" element={<TurfBox />} />
+          <Route path="/TurfCategory" element={<TurfCategory />} />
           <Route path="/book" element={<Booking />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin/turfs" element={<AdminTurf />} />

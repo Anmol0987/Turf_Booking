@@ -4,6 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { GrSearch } from "react-icons/gr";
 import TurfBox from '../Components/TurfBox';
 import { BsArrowRight } from "react-icons/bs";
+import TurfCategory from '../Components/TurfCategory';
 
 
 
@@ -73,6 +74,9 @@ const Home = () => {
           </div>
 
         </div>
+      </div>
+      <div className='flex justify-center items-center gap-5 py-28'> 
+        <TurfCategory/>
       </div>
     </>
   )

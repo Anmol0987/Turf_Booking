@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../assets/logo/logo.png'
+
 import { useSetRecoilState } from 'recoil'
 import isSignUp from '../atoms/IsSignup'
 import { Link } from 'react-router-dom'
