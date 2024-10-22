@@ -7,8 +7,24 @@ import { BsArrowRight } from "react-icons/bs";
 import TurfCategory from '../Components/TurfCategory';
 
 
+import Footer from '../Components/Footer';
+import { useInView } from 'react-intersection-observer';
+import { easeIn, easeInOut, motion } from 'framer-motion';
 
 const Home = () => {
+  // Array of turf boxes data
+  const turfBoxes = ['Turf 1', 'Turf 2', 'Turf 3', 'Turf 4', 'Turf 5', 'Turf 6'];
+
+  const { ref, inView } = useInView({
+    threshold: 0.1, // Trigger when 20% of the boxes are in view
+  });
+
+  const animationVariants = {
+    hidden: { opacity: 0, x: -500 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  
   return (
     <>
 
@@ -22,7 +38,8 @@ const Home = () => {
       >
         <Navbar />
         {/* Body */}
-        <div className='flex flex-col items-center justify-center mt-52 gap-16'>
+       
+        <div className='flex flex-col h-full items-center justify-center  gap-16'>
           <h2 className='text-center text-6xl text-white font-bold uppercase'>Best Turf Booking Platform <br /> in your Area</h2>
           <h3 className='text-center text-lg text-white'>You can choose from variety of sports , such as cricket, Football , Badminton , tennis and more <br /> and book your preferred time slot and location</h3>
           <div className='h-24 w-[50vw] rounded-lg bg-white shadow-lg flex items-center justify-evenly'>
@@ -48,8 +65,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='w-full flex flex-col items-start bg-white px-32 py-12'>
-        <div className='flex justify-between items-center w-full px-14'>
+      <div className='w-full flex flex-col items-start bg-white px-32 py-16'>
+        <div className='flex justify-between items-center w-full px-14 py-5 '>
           <h1>Expolre Best Turfs Near You</h1>
           <div className='flex justify-between items-center gap-2 :hover cursor-pointer'>
             <h5>See all</h5>
@@ -58,26 +75,42 @@ const Home = () => {
         </div>
 
         <div className='flex flex-wrap '>
-          <div className='w-1/3 flex justify-center py-4 '>
+          {/* <motion.div 
+            className='w-1/3 flex justify-center py-4 '
+            ref={ref}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={animationVariants}
+            transition={{ duration: 0.5 }}
+          >
             <TurfBox title='Turf 1' />
-          </div>
-          <div className='w-1/3 flex justify-center py-4 '>
-            <TurfBox title='Turf 1' />
-          </div> <div className='w-1/3 flex justify-center py-4 '>
-            <TurfBox title='Turf 1' />
-          </div> <div className='w-1/3 flex justify-center py-4 '>
-            <TurfBox title='Turf 1' />
-          </div> <div className='w-1/3 flex justify-center py-4 '>
-            <TurfBox title='Turf 1' />
-          </div> <div className='w-1/3 flex justify-center py-4 '>
-            <TurfBox title='Turf 1' />
-          </div>
+          </motion.div> */}
+          {turfBoxes.map((title, index) => (
+          <motion.div
+            key={index}
+            ref={ref}
+            className="w-1/3 flex justify-center py-4"
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={animationVariants}
+            transition={{
+              duration: 0.4,
+              delay: index * 0.05, // Stagger the boxes by 0.3 seconds
+              ease: easeInOut
+            }}
+          >
+            <TurfBox title={title} />
+          </motion.div>
+        ))}
+         
 
         </div>
       </div>
       <div className='flex justify-center items-center gap-5 py-28'> 
         <TurfCategory/>
       </div>
+      <Footer/>
+      
     </>
   )
 }

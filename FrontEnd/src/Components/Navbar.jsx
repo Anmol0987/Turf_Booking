@@ -19,7 +19,7 @@ const Navbar = () => {
 
     return (
         <>
-                <div className='fixed w-[100vw] left-[50%] -translate-x-[50%] h-28 backdrop-blur-xl bg-gray-300/10 flex items-center justify-between px-5 '>
+                <div className='relative w-full h-28 backdrop-blur-xl bg-gray-300/10 flex items-center justify-between px-6 '>
                     <div className='flex items-center justify-center'> 
                         <h1 className='text-[3vw]  mt-5 font-bold text-center text-white mb-8'>Turf!t</h1>
                     </div>
