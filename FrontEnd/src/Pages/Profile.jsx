@@ -56,7 +56,13 @@ const Profile = () => {
         </div>
       </div>
       <button onClick={HandleLogout}>Logout</button>
-      {/* Navbar */}
+
+
+
+
+
+
+      {/* Navbar
       <div className='w-full h-24 pt-1 flex items-center justify-between p-5'>
           <div className='flex items-center justify-center'> 
              <h1 className='text-[3vw]  mt-5 font-bold text-center text-black mb-8'>Turf!t</h1>
@@ -68,11 +74,11 @@ const Profile = () => {
           </div>
       </div>
       {/* Body */}
-      <div className='flex flex-col items-center justify-center'>
+      {/* <div className='flex flex-col items-center justify-center'>
         <h2 className='text-center text-3xl'>Best Turf Booking Platform <br /> in your Area</h2>
         <h3 className='text-center text-lg '>You can choose from variety of sports , such as cricket, Football , Badminton , tennis and more <br /> and book your preferred time slot and location</h3>
         <div className='h-24 w-[50vw]rounded-md bg-slate-700 shadow-md'></div>
-      </div>
+      </div> */} 
 
     </div>
   );
