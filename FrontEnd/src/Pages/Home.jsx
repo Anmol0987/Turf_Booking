@@ -9,14 +9,14 @@ import TurfCategory from '../Components/TurfCategory';
 
 import Footer from '../Components/Footer';
 import { useInView } from 'react-intersection-observer';
-import { easeIn, easeInOut, motion } from 'framer-motion';
+import { easeInOut, motion } from 'framer-motion';
 
 const Home = () => {
   // Array of turf boxes data
-  const turfBoxes = ['Turf 1', 'Turf 2', 'Turf 3', 'Turf 4', 'Turf 5', 'Turf 6'];
+  const turfBoxes = ['Turf 1', 'Turf 2', 'Turf 3', 'Turf 4', 'Turf 5', 'Turf 6',];
 
   const { ref, inView } = useInView({
-    threshold: 0.1, // Trigger when 20% of the boxes are in view
+    threshold: 0.01, // Trigger when 20% of the boxes are in view
   });
 
   const animationVariants = {

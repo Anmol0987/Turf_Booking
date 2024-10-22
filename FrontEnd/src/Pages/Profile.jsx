@@ -46,8 +46,10 @@ const Profile = () => {
   if (!user) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen ]">
-      <div className="container mx-auto py-8">
+  
+     
+       <div className="flex flex-col min-h-screen justify-start items-center h-screen shadow-2xl" >
+       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold text-center mb-8">User Profile</h1>
         <div className="bg-white shadow-md rounded p-6">
           <h2 className="text-xl font-bold">Username: {user.username}</h2>
@@ -55,12 +57,8 @@ const Profile = () => {
           <p>Role: {user.role}</p>
         </div>
       </div>
-      <button onClick={HandleLogout}>Logout</button>
-
-
-
-
-
+      <button className='py-2 px-4 bg-red-500 text-white rounded-md' onClick={HandleLogout}>Logout</button>
+      
 
       {/* Navbar
       <div className='w-full h-24 pt-1 flex items-center justify-between p-5'>
