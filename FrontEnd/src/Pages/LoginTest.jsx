@@ -59,13 +59,14 @@ const LoginTest = () => {
 
   return (
     <div 
-      className="flex justify-center items-center h-screen shadow-2xl" 
+      className="flex flex-col justify-start items-center h-screen shadow-2xl" 
       style={{ 
         backgroundImage: 'url("https://images.unsplash.com/photo-1713815713124-362af0201f3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")', // replace with your image URL
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
+      <h1 className='text-[5vw]  shadow-md mt-5 font-bold text-center text-white mb-8'>Turf!t</h1>
       <div className="relative w-full max-w-[100vh] min-h-[500px] rounded-lg shadow-lg bg-white bg-opacity-80 overflow-hidden">
         {/* Sign Up Form */}
         <div

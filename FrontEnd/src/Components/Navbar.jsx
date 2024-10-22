@@ -2,6 +2,9 @@ import React from 'react'
 import logo from '../assets/logo/logo.png'
 import { useSetRecoilState } from 'recoil'
 import isSignUp from '../atoms/IsSignup'
+import { Link } from 'react-router-dom'
+import { IoIosArrowDown } from "react-icons/io";
+
 
 
 
@@ -16,18 +19,18 @@ const Navbar = () => {
 
     return (
         <>
-                <div className='fixed w-[95%] left-[50%] -translate-x-[50%] h-28 backdrop-blur-xl bg-gray-300/10 flex items-center justify-between px-5 mt-5 rounded-full'>
-                    <div className='relative h-full'>
-                        <img className='relative cursor-pointer  h-full' src={logo} alt="" />
+                <div className='fixed w-[100vw] left-[50%] -translate-x-[50%] h-28 backdrop-blur-xl bg-gray-300/10 flex items-center justify-between px-5 '>
+                    <div className='flex items-center justify-center'> 
+                        <h1 className='text-[3vw]  mt-5 font-bold text-center text-white mb-8'>Turf!t</h1>
                     </div>
-                    <div className='relative flex justify-between items-center gap-8 text-green-300 text-xl ' >
-                        <span className='trasition ease-in-out delay-100 hover:-translate-y-2 hover:text-2xl duration-300 cursor-pointer hover:underline'>Contact Us</span>
-                        <span className='trasition ease-in-out delay-100 hover:-translate-y-2 hover:text-2xl duration-300 cursor-pointer hover:underline'>About Us</span>
-                        <span className='trasition ease-in-out delay-100 hover:-translate-y-2 hover:text-2xl duration-300 cursor-pointer hover:underline'>Become Supplier</span>
-                    </div>
-                    <div className='reletive flex mx-5   gap-3 '>
+                    <div className='flex items-center justify-center gap-10 text-white '>
+                        <button className='flex items-center gap-1'>Turf List <IoIosArrowDown/></button>
+                        <Link>About us</Link>
+                        <button className='border-white border-2 py-2 px-3 rounded-md'>List your Turf </button>
                         <button onClick={handleButton} className='text-xl bg-blue-400 px-8 items-center py-3  rounded-full  text-white transition ease-in-out delay-100 hover:text-blue-400  hover:bg-white hover:-translate-y-2  duration-300 '>Get Started</button>
+
                     </div>
+                   
                 </div>
         </>
     )
