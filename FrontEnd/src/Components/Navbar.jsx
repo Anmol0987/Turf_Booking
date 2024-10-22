@@ -27,7 +27,7 @@ const Navbar = () => {
                         <button className='flex items-center gap-1'>Turf List <IoIosArrowDown/></button>
                         <Link>About us</Link>
                         <button className='border-white border-2 py-2 px-3 rounded-md'>List your Turf </button>
-                        <button onClick={handleButton} className='text-xl bg-blue-400 px-8 items-center py-3  rounded-full  text-white transition ease-in-out delay-100 hover:text-blue-400  hover:bg-white hover:-translate-y-2  duration-300 '>Get Started</button>
+                        <button onClick={handleButton} className='text-lg relative bg-white  px-8 items-center py-3  rounded-full  text-black transition ease-in-out delay-100 hover:text-blue-400  hover:bg-white hover:-translate-y-2  duration-300 '>Login/Register</button>
 
                     </div>
                    
