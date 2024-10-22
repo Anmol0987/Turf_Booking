@@ -106,7 +106,7 @@ const Home = () => {
 
         </div>
       </div>
-      <div className='flex justify-center items-center gap-5 py-28'> 
+      <div className='flex justify-center items-center gap-5 pb-28 pt-12'> 
         <TurfCategory/>
       </div>
       <Footer/>
