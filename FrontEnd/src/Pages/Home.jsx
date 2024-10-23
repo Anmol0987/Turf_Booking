@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../Components/Navbar'
 import { IoIosArrowDown } from "react-icons/io";
 import { GrSearch } from "react-icons/gr";
@@ -7,13 +7,17 @@ import { BsArrowRight } from "react-icons/bs";
 import TurfCategory from '../Components/TurfCategory';
 
 
+
 import Footer from '../Components/Footer';
 import { useInView } from 'react-intersection-observer';
 import { easeInOut, motion } from 'framer-motion';
+import { useRecoilState } from 'recoil';
+import isLoginAtom from '../atoms/Islogin';
 
 const Home = () => {
   // Array of turf boxes data
   const turfBoxes = ['Turf 1', 'Turf 2', 'Turf 3', 'Turf 4', 'Turf 5', 'Turf 6',];
+  const[islogin,setIslogin] = useRecoilState(isLoginAtom)
 
   const { ref, inView } = useInView({
     threshold: 0.01, // Trigger when 20% of the boxes are in view
@@ -24,6 +28,11 @@ const Home = () => {
     visible: { opacity: 1, x: 0 },
   };
 
+
+  const handleButton = () => {
+    setSignUp(true)
+    window.location.href = '/login'
+  }
   
   return (
     <>
@@ -108,6 +117,30 @@ const Home = () => {
       </div>
       <div className='flex justify-center items-center gap-5 pb-28 pt-12'> 
         <TurfCategory/>
+      </div>
+      <div className='w-full h-[50vh]  flex justify-center items-center'>
+          <div
+             className=" h-56 w-[50vw] flex flex-col gap-4 justify-center items-center bg-slate-600  shadow-2xl rounded-3xl"
+             style={{
+               backgroundImage: 'url("https://images.unsplash.com/photo-1527475549522-94b2a376ce13?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")', // replace with your image URL
+               backgroundSize: 'cover',
+               backgroundPosition: 'center',
+             }}
+          >
+
+            {islogin ?  (
+              <>
+                <h2 className='text-3xl text-white' >Book your Turf</h2>
+                <button className='px-5 py-2 bg-blue-500 text-white rounded-lg'>Book</button>
+              </>
+            ):(
+              <>
+                <h2 className='text-3xl text-white' >Register with us!</h2>
+                <button  className='px-5 py-2 bg-blue-500 text-white rounded-lg'>Register</button>
+              </>
+            ) }
+            
+          </div>
       </div>
       <Footer/>
       
