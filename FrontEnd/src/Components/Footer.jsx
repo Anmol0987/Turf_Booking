@@ -16,6 +16,9 @@ const Footer = () => {
         threshold: 0.1, // Trigger when 20% of the element is in view
         // triggerOnce: true, // Only trigger the animation once
       });
+
+
+      
   return (
     <motion.div 
         className=' w-full h-[60vh] bg-slate-950 flex flex-col'

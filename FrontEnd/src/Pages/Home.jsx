@@ -13,8 +13,6 @@ import isLoginAtom from '../atoms/Islogin';
 import Cities from '../Components/Cities';
 
 
-
-
 const Home = () => {
   // Array of turf boxes data
   const turfBoxes = ['Turf 1', 'Turf 2', 'Turf 3', 'Turf 4', 'Turf 5', 'Turf 6',];
@@ -47,6 +45,18 @@ const Home = () => {
     }
   };
 
+    // State for overlay visibility
+    const [overlayVisible, setOverlayVisible] = useState(true);
+
+    useEffect(() => {
+      // Set timeout to hide the overlay after 2 seconds
+      const timer = setTimeout(() => {
+        setOverlayVisible(false);
+      }, 2000); // Adjust duration as needed
+  
+      return () => clearTimeout(timer);
+    }, []);
+
   // Use effect to set up the event listener
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -57,7 +67,21 @@ const Home = () => {
 
   return (
     <>
-    <div className='overflow-hidden'>
+      <div className='overflow-hidden'>
+        {/* Full-screen overlay */}
+        {overlayVisible && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center bg-white z-50"
+            initial={{ y: 0 }}
+            animate={{ y: '-100%' }}
+            transition={{ duration: 1 ,delay:0.7 }} // Animation duration for sliding up
+
+          >
+            <h1 className="text-7xl text-black font-bold">Wanna Play?</h1>
+          </motion.div>
+        )}
+
+<div className='overflow-hidden'>
       <div
         className="flex flex-col justify-start items-center h-screen shadow-2xl "
         style={{
@@ -69,8 +93,14 @@ const Home = () => {
         <Navbar />
         {/* Body */}
        
-        <div className='flex flex-col h-full items-center justify-center  gap-16'>
-          <h2 className='text-center text-6xl text-white font-bold uppercase'>Best Turf Booking Platform <br /> in your Area</h2>
+        <motion.div 
+            className='flex flex-col h-full items-center justify-center  gap-16'
+            initial={{ opacity: 0, y: -400 }} // Start from below
+            animate={{ opacity: 1, y: 0 }} // Animate to original position
+            transition={{ duration: 0.5 ,delay: 1}} // Animation duration
+            
+        >
+          <h2 className='text-center text-6xl text-white font-bold uppercase'> Best Turf Booking Platform <br /> in your Area </h2>
           <h3 className='text-center text-lg text-white'>You can choose from variety of sports , such as cricket, Football , Badminton , tennis and more <br /> and book your preferred time slot and location</h3>
           <div className='h-24 w-[50vw] rounded-lg bg-white shadow-lg flex items-center justify-evenly'>
             
@@ -87,11 +117,16 @@ const Home = () => {
             <div className="relative flex flex-col gap-1">
                 <h1 className='font-bold'>Location</h1>
                 <select
-                  className="appearance-none bg-white border border-gray-300 px-4 py-1 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:border-indigo-500"
+                  className="appearance-none bg-white border border-gray-300 px-4 py-1 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:border-indigo-500 "
                 >
                   <option  value="Football">Bhopal</option>
                   <option value="Basketball">Indore</option>
                   <option value="Cricket">Pune</option>
+                  <option value="Cricket">Hyderabad</option>
+                  <option value="Cricket">Mumbai</option>
+                  <option value="Cricket">Delhi</option>
+                  <option value="Cricket">Kolkata</option>
+                  <option value="Cricket">Chennai</option>
                 </select>
             </div>
             
@@ -135,7 +170,7 @@ const Home = () => {
               <GrSearch className='text-white' />
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       <div className='w-full flex flex-col items-start bg-white px-32 py-16'>
         <div className='flex justify-between items-center w-full px-14 py-5 '>
@@ -184,15 +219,7 @@ const Home = () => {
           <TurfCategory/>
         </div>
       </div>
-
-
-
       <Cities/>
-     
-
-
-
-
       <div className='w-full h-[50vh]  flex justify-center items-center'>
           <div
              className=" h-56 w-[50vw] flex flex-col gap-4 justify-center items-center bg-slate-600  shadow-2xl rounded-3xl"
@@ -218,6 +245,7 @@ const Home = () => {
           </div>
       </div>
       <Footer/>
+      </div>
       </div>
     </>
   )

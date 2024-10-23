@@ -8,6 +8,8 @@ import { useRecoilState } from 'recoil'
 import isLoginAtom from '../atoms/Islogin'
 import axios from 'axios'
 import UserAtom from '../atoms/User';
+import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 
 const Navbar = () => {
@@ -75,10 +77,21 @@ const Navbar = () => {
 
   const initials = getInitials(user.username);
 
+  const { ref, inView } = useInView({
+    threshold: 0.1, // Trigger when 20% of the element is in view
+    // triggerOnce: true, // Only trigger the animation once
+  });
+
 
   return (
     <>
-      <div className='relative w-full h-24 backdrop-blur-xl bg-gray-300/10 flex items-center justify-between px-6 '>
+      <motion.div 
+        className='relative w-full h-24 backdrop-blur-xl bg-gray-300/10 flex items-center justify-between px-6 '
+        ref={ref}
+        initial={{ opacity: 0, y: -50 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
+        transition={{ duration: 0.5  }}
+      >
         <div className='flex items-center justify-center'>
           <h1 className='text-[3vw]  mt-5 font-bold text-center text-white mb-8'>Turf!t</h1>
         </div>
@@ -118,7 +131,7 @@ const Navbar = () => {
 
         </div>
 
-      </div>
+      </motion.div>
     </>
   )
 }
