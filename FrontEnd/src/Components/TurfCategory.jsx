@@ -7,6 +7,7 @@ import { LiaShareSolid } from "react-icons/lia";
 const TurfCategory = () => {
     return (
         <>
+        
             <div className=' h-48 w-80 bg-white flex justify-center items-center border-gray-300/200 border-[1px]  rounded-xl overflow-hidden' >
                 <div className='w-[60%] h-full bg-green-400 rounded-r-[100px] flex flex-col items-center justify-center'>
                     <img className='h-[100px]' src={football} alt="" />

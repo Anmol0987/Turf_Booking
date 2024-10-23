@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../Components/Navbar'
 import { IoIosArrowDown } from "react-icons/io";
 import { GrSearch } from "react-icons/gr";
 import TurfBox from '../Components/TurfBox';
 import { BsArrowRight } from "react-icons/bs";
 import TurfCategory from '../Components/TurfCategory';
-
-
-
 import Footer from '../Components/Footer';
 import { useInView } from 'react-intersection-observer';
 import { easeInOut, motion } from 'framer-motion';
 import { useRecoilState } from 'recoil';
 import isLoginAtom from '../atoms/Islogin';
+import Cities from '../Components/Cities';
+
+
+
 
 const Home = () => {
   // Array of turf boxes data
@@ -29,16 +30,36 @@ const Home = () => {
   };
 
 
-  const handleButton = () => {
-    setSignUp(true)
-    window.location.href = '/login'
-  }
-  
+  //for Range
+  const [showRangeDropdown, setShowRangeDropdown] = useState(false);
+  const [priceRange, setPriceRange] = useState(1000); // Set the default range value
+  const dropdownRef = useRef(null); // Ref for the dropdown
+
+  // Function to handle range change
+  const handleRangeChange = (e) => {
+    setPriceRange(e.target.value);
+  };
+
+  // Function to handle clicks outside the dropdown
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowRangeDropdown(false);
+    }
+  };
+
+  // Use effect to set up the event listener
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-
+    <div className='overflow-hidden'>
       <div
-        className="flex flex-col justify-start items-center h-screen shadow-2xl"
+        className="flex flex-col justify-start items-center h-screen shadow-2xl "
         style={{
           backgroundImage: 'url("https://images.unsplash.com/photo-1713815713124-362af0201f3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")', // replace with your image URL
           backgroundSize: 'cover',
@@ -52,22 +73,64 @@ const Home = () => {
           <h2 className='text-center text-6xl text-white font-bold uppercase'>Best Turf Booking Platform <br /> in your Area</h2>
           <h3 className='text-center text-lg text-white'>You can choose from variety of sports , such as cricket, Football , Badminton , tennis and more <br /> and book your preferred time slot and location</h3>
           <div className='h-24 w-[50vw] rounded-lg bg-white shadow-lg flex items-center justify-evenly'>
-            <div className='flex flex-col items-start justify-center gap-1 p-1'>
-              <h1 className='font-bold'>Type</h1>
-              <h2 className='flex items-center gap-1'>Football <IoIosArrowDown /></h2>
+            
+            <div className="relative flex flex-col gap-1">
+                <h1 className='font-bold'>Type</h1>
+                <select
+                  className="appearance-none bg-white border border-gray-300 px-4 py-1 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:border-indigo-500"
+                >
+                  <option  value="Football">Football</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Cricket">Cricket</option>
+                </select>
             </div>
-            <div className='flex flex-col items-start justify-center gap-1 p-1'>
-              <h1 className='font-bold'>Location</h1>
-              <h2 className='flex items-center gap-1'>Bhopal <IoIosArrowDown /></h2>
+            <div className="relative flex flex-col gap-1">
+                <h1 className='font-bold'>Location</h1>
+                <select
+                  className="appearance-none bg-white border border-gray-300 px-4 py-1 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:border-indigo-500"
+                >
+                  <option  value="Football">Bhopal</option>
+                  <option value="Basketball">Indore</option>
+                  <option value="Cricket">Pune</option>
+                </select>
             </div>
+            
             <div className='flex flex-col items-start justify-center gap-1 p-1'>
               <h1 className='font-bold'>Date</h1>
-              <h2 className='flex items-center gap-1'>24-4-12 <IoIosArrowDown /></h2>
+              <input className='flex items-center gap-1' type='Date'/>
             </div>
+            
             <div className='flex flex-col items-start justify-center gap-1 p-1'>
-              <h1 className='font-bold'>Price</h1>
-              <h2 className='flex items-center gap-1'>1k <IoIosArrowDown /></h2>
-            </div>
+                <h1 className='font-bold'>Price</h1>
+                <h2
+                  className='flex items-center gap-1 cursor-pointer bg-white border border-gray-300 px-4 py-1 pr-8 rounded-lg shadow leading-tight'
+                  onClick={() => setShowRangeDropdown(!showRangeDropdown)} // Toggle dropdown on click
+                >
+                  ${priceRange} 
+                </h2>
+                
+                {/* Range Dropdown - Conditionally Rendered */}
+                {showRangeDropdown && (
+                  <div className='relative' ref={dropdownRef}>
+                    <div className="absolute mt-2 px-10 py-4 bg-white shadow-lg border border-gray-300 rounded-lg z-10">
+                      <input
+                        type="range"
+                        min="100"
+                        max="5000"
+                        step="100"
+                        value={priceRange}
+                        onChange={handleRangeChange}
+                        className="w-full"
+                      />
+                      <div className='flex justify-between w-32 text-sm mt-1'>
+                        <span>100</span>
+                        <span>5000</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
             <div className='flex items-center justify-center bg-green-700 p-4 rounded-md'>
               <GrSearch className='text-white' />
             </div>
@@ -115,9 +178,21 @@ const Home = () => {
 
         </div>
       </div>
-      <div className='flex justify-center items-center gap-5 pb-28 pt-12'> 
-        <TurfCategory/>
+      <div className='flex flex-col  justify-center items-start gap-5 px-24 pb-28 pt-12'> 
+        <h2 className='text-2xl text-slate-600 font-bold'>Turf Category</h2>
+        <div className='flex items-center justify-center gap-4'>
+          <TurfCategory/>
+        </div>
       </div>
+
+
+
+      <Cities/>
+     
+
+
+
+
       <div className='w-full h-[50vh]  flex justify-center items-center'>
           <div
              className=" h-56 w-[50vw] flex flex-col gap-4 justify-center items-center bg-slate-600  shadow-2xl rounded-3xl"
@@ -143,7 +218,7 @@ const Home = () => {
           </div>
       </div>
       <Footer/>
-      
+      </div>
     </>
   )
 }
