@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import UserAtom from '../atoms/User';
+import { useRecoilState } from 'recoil';
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useRecoilState(UserAtom);
 
   useEffect(() => {
     const fetchUserProfile = async () => {

@@ -3,14 +3,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminTurf from './Pages/AdminTurf';
 import Profile from './Pages/Profile';
 import Booking from './Pages/Booking';
-import Register from './Pages/Register';
-import Login from './Pages/Login';
+// import Register from './Pages/Register';
+// import Login from './Pages/Login';
 import TurfList from './Pages/TurfList';
 import Home from './Pages/Home'
 import OAuthRedirect from './Pages/OAuthRedirect';
 import LoginTest from './Pages/LoginTest';
 import { RecoilRoot } from 'recoil';
-import TurfBox from './Components/TurfBox';
 import TurfCategory from './Components/TurfCategory';
 
 const App = () => {

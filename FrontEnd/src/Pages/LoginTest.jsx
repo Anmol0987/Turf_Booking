@@ -35,10 +35,10 @@ const LoginTest = () => {
         setIsLogin(true);
         navigate('/');
       } else {
-        setError('Login failed: Invalid credentials');
+        // alert('Login failed: Invalid credentials');
       }
     } catch (error) {
-      setError('Login failed: ' + error.response?.data?.error || 'Server error');
+      alert(error.response.data.message);
     }
   };
 
@@ -48,6 +48,7 @@ const LoginTest = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    try{
     await axios.post('http://localhost:3000/api/auth/register', { username: username, email: registerEmail, password: registerPassword });
     alert('Registration successful!');
     navigate('/login');
@@ -56,6 +57,10 @@ const LoginTest = () => {
     setRegisterEmail('');
     setRegisterPassword('');
     setUsername('');
+    }
+    catch (error) {
+      alert(error.response.data.message);
+    }
   }
 
 
